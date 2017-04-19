@@ -1,0 +1,6 @@
+eclipse.preferences.version=1
+encoding//gomeSpider/items.py=utf-8
+encoding//gomeSpider/middlewares.py=utf-8
+encoding//gomeSpider/pipelines.py=utf-8
+encoding//gomeSpider/settings.py=utf-8
+encoding//gomeSpider/spiders/spider.py=utf-8
