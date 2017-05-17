@@ -10,7 +10,7 @@ import sys
 
 class CYGSpider(scrapy.Spider):
     name = "CYG"
-    start_urls = ["http://tl.cyg.changyou.com/goods/public"] #/goods/public
+    start_urls = ["http://tl.cyg.changyou.com"] # /goods/public
     reload(sys)
     sys.setdefaultencoding("utf8")
 
