@@ -10,12 +10,14 @@ import sys
 
 class CYGSpider(scrapy.Spider):
     name = "CYG"
-    start_urls = ["http://tl.cyg.changyou.com"]
+    start_urls = ["http://tl.cyg.changyou.com/goods/public"] #/goods/public
     reload(sys)
     sys.setdefaultencoding("utf8")
 
     conn = MySQLdb.connect(host='192.168.56.101', port=3306, user='root', passwd='123456', db='scrapy',charset='utf8')
     cursor = conn.cursor()
+
+
 
     def parse(self, response):
         for result in response.xpath('//*[@id="J_good_list"]/li'):
@@ -49,6 +51,9 @@ class CYGSpider(scrapy.Spider):
             rItem['xiunian'] = xiunian
             rItem['xinfa'] = xinfa
             rItem['leftTime'] = leftTime
+
+            if(self.exists(id)):
+                continue
 
             yield Request(url, callback=self.parse_item,  meta = {'item' : rItem})
 
@@ -161,6 +166,11 @@ class CYGSpider(scrapy.Spider):
             data.append(val)
         return data
 
+    def exists(self, id):
+        count = self.cursor.execute("select 1 from CYGINFO where id ="+id)
+        if(count == 1):
+            return True
+        return False
 
 
 

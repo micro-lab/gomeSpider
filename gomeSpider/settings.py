@@ -92,6 +92,10 @@ ROBOTSTXT_OBEY = False
 RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
 RETRY_TIMES = 10
 DOWNLOAD_TIMEOUT = 500
+CONCURRENT_REQUESTS = 10
+LOG_LEVEL = 'DEBUG'
+COOKIES_ENABLED = False
+AJAXCRAWL_ENABLED = True
 
 DOWNLOADER_MIDDLEWARES = {
     'scrapy.contrib.downloadermiddleware.robotstxt.RobotsTxtMiddleware': 100,
@@ -103,9 +107,9 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.contrib.downloadermiddleware.redirect.MetaRefreshMiddleware': 580,
     'scrapy.contrib.downloadermiddleware.httpcompression.HttpCompressionMiddleware': 590,
     'scrapy.contrib.downloadermiddleware.redirect.RedirectMiddleware': 600,
-    'scrapy.contrib.downloadermiddleware.cookies.CookiesMiddleware': 700,
+    # 'scrapy.contrib.downloadermiddleware.cookies.CookiesMiddleware': 700,
     'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 750,
     'scrapy.contrib.downloadermiddleware.chunked.ChunkedTransferMiddleware': 830,
     'scrapy.contrib.downloadermiddleware.stats.DownloaderStats': 850,
-    'scrapy.contrib.downloadermiddleware.httpcache.HttpCacheMiddleware': 900,
+    'scrapy.contrib.downloadermiddleware.httpcache.HttpCacheMiddleware': 900
 }
