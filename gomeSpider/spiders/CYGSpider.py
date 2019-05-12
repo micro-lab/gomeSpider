@@ -7,14 +7,16 @@ from scrapy.http import Response
 from gomeSpider.items import CYGItem
 import MySQLdb
 import sys
-
+import time
 class CYGSpider(scrapy.Spider):
     name = "CYG"
-    start_urls = ["http://tl.cyg.changyou.com"] # /goods/public
+    #http://tl.cyg.changyou.com/goods/selling?world_id=0&order_by=remaintime-desc&have_chosen=&page_num=1#goodsTag
+    #http://tl.cyg.changyou.com/goods/public?world_id=0&order_by=remaintime-desc&have_chosen=&page_num=1#goodsTag
+    start_urls = ["http://tl.cyg.changyou.com/goods/selling?world_id=0&order_by=remaintime-desc&have_chosen=&page_num=1#goodsTag"] #http://tl.cyg.changyou.com/goods/selling  /goods/public
     reload(sys)
     sys.setdefaultencoding("utf8")
 
-    conn = MySQLdb.connect(host='192.168.56.101', port=3306, user='root', passwd='123456', db='scrapy',charset='utf8')
+    conn = MySQLdb.connect(host='localhost', port=3306, user='root', passwd='123456', db='scrapy',charset='utf8')
     cursor = conn.cursor()
 
 
@@ -56,6 +58,7 @@ class CYGSpider(scrapy.Spider):
                 continue
 
             yield Request(url, callback=self.parse_item,  meta = {'item' : rItem})
+            time.sleep(3)
 
         next_page_url = response.xpath('//div[@class="ui-pagination"]/a[last()]/@href').extract()
         if next_page_url[0] != 'javascript:void(0)':
@@ -140,7 +143,7 @@ class CYGSpider(scrapy.Spider):
         item['area'] = area
 
         try:
-            sql = "insert into CYGINFO values(" + item['id'] + ",'" + item['menpai'] + "'," + item['dengji'] + ",'" + \
+            sql = "REPLACE INTO CYGINFO values(" + item['id'] + ",'" + item['menpai'] + "'," + item['dengji'] + ",'" + \
                   item['name'] + "'," + item['sex'] + ",'" + item['area'] + "'," + item['mainAttention'] + "," + \
                   item['mainAttentionVal'] + "," + item['jiankang'] + "," + item[
                       'jianxiaxian'] + "," + item[
