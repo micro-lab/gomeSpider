@@ -90,8 +90,8 @@ ROBOTSTXT_OBEY = False
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
-RETRY_TIMES = 10
-DOWNLOAD_TIMEOUT = 500
+RETRY_TIMES = 100
+DOWNLOAD_TIMEOUT = 8000
 CONCURRENT_REQUESTS = 10
 LOG_LEVEL = 'DEBUG'
 COOKIES_ENABLED = False
@@ -102,7 +102,7 @@ DOWNLOADER_MIDDLEWARES = {
     'scrapy.contrib.downloadermiddleware.httpauth.HttpAuthMiddleware': 300,
     'scrapy.contrib.downloadermiddleware.downloadtimeout.DownloadTimeoutMiddleware': 350,
     'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware': 400,
-    'scrapy.contrib.downloadermiddleware.retry.RetryMiddleware': 500,
+    'scrapy.contrib.downloadermiddleware.retry.RetryMiddleware': 503,
     'scrapy.contrib.downloadermiddleware.defaultheaders.DefaultHeadersMiddleware': 550,
     'scrapy.contrib.downloadermiddleware.redirect.MetaRefreshMiddleware': 580,
     'scrapy.contrib.downloadermiddleware.httpcompression.HttpCompressionMiddleware': 590,

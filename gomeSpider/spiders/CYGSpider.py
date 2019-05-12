@@ -12,7 +12,7 @@ class CYGSpider(scrapy.Spider):
     name = "CYG"
     #http://tl.cyg.changyou.com/goods/selling?world_id=0&order_by=remaintime-desc&have_chosen=&page_num=1#goodsTag
     #http://tl.cyg.changyou.com/goods/public?world_id=0&order_by=remaintime-desc&have_chosen=&page_num=1#goodsTag
-    start_urls = ["http://tl.cyg.changyou.com/goods/selling?world_id=0&order_by=remaintime-desc&have_chosen=&page_num=1#goodsTag"] #http://tl.cyg.changyou.com/goods/selling  /goods/public
+    start_urls = ["http://tl.cyg.changyou.com/goods/public?world_id=0&order_by=remaintime-desc&have_chosen=&page_num=1#goodsTag"] #http://tl.cyg.changyou.com/goods/selling  /goods/public
     reload(sys)
     sys.setdefaultencoding("utf8")
 
@@ -58,7 +58,7 @@ class CYGSpider(scrapy.Spider):
                 continue
 
             yield Request(url, callback=self.parse_item,  meta = {'item' : rItem})
-            time.sleep(3)
+            # time.sleep(3)
 
         next_page_url = response.xpath('//div[@class="ui-pagination"]/a[last()]/@href').extract()
         if next_page_url[0] != 'javascript:void(0)':
